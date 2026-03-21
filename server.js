@@ -25,6 +25,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
+/* ================= HOME ROUTE ================= */
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "career.html"));
+});
+
 /* ================= ALLOWED FILE TYPES ================= */
 const ALLOWED_MIMETYPES = [
   "application/pdf",                                                         // .pdf
@@ -68,10 +73,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-/* ================= TEST ROUTE ================= */
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
+
 
 /* ================= SUBMIT API ================= */
 app.post("/submit", upload.single("resume"), async (req, res) => {
